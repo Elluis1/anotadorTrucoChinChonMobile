@@ -16,6 +16,7 @@ export default function Home() {
   const [inputValues, setInputValue] = useState([0, 0, 0, 0]);
 
   const juegos = [
+    { id: 0, nombre: "Seleccionar el juego" },
     { id: 1, nombre: "Truco" },
     { id: 2, nombre: "Chin Chon" },
   ];
@@ -24,6 +25,8 @@ export default function Home() {
   const [conteoTruco2, setConteoTruco2] = useState(0);
 
   useEffect(() => {
+    if (conteoTruco1 === -1) setConteoTruco1(0);
+    if (conteoTruco2 === -1) setConteoTruco2(0);
     if (conteoTruco1 === 16) setConteoTruco1(1);
     if (conteoTruco2 === 16) setConteoTruco2(1);
   }, [conteoTruco1, conteoTruco2]);
@@ -40,6 +43,11 @@ export default function Home() {
   const handleSumarTruco = (index) => {
     if (index === 1) setConteoTruco1(conteoTruco1 + 1);
     if (index === 2) setConteoTruco2(conteoTruco2 + 1);
+  };
+
+  const handleRestarTruco = (index) => {
+    if (index === 1) setConteoTruco1(conteoTruco1 - 1);
+    if (index === 2) setConteoTruco2(conteoTruco2 - 1);
   };
 
   const handleSumarChinChon = (index) => {
@@ -63,11 +71,11 @@ export default function Home() {
           source={require("./assets/fosforo.png")}
           style={{
             position: "absolute",
-            top: fosforo.top,
-            left: fosforo.left,
+            top: parseInt(fosforo.top, 10) * 1.5,
+            left: parseInt(fosforo.left, 10) * 1.5,
             transform: [{ rotate: `${parseFloat(fosforo.rotate)}deg` }],
-            width: 40,
-            height: 20,
+            width: 15,
+            height: 50,
           }}
         />
       ))}
@@ -88,7 +96,12 @@ export default function Home() {
         <Picker
           selectedValue={juego}
           onValueChange={(itemValue) => setJuego(itemValue)}
-          style={{ height: 55, width: "100%" }}
+          style={{
+            height: 55,
+            width: "100%",
+            borderWidth: 2,
+            borderColor: "#000",
+          }}
         >
           <Picker.Item label="Seleccionar el juego" value={0} />
           <Picker.Item label="Truco" value={1} />
@@ -102,22 +115,39 @@ export default function Home() {
             <View style={styles.playerContainer}>
               <Text style={styles.playerTitle}>Jugador 1</Text>
               {renderFosforos(conteoTruco1)}
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handleSumarTruco(1)}
-              >
-                <Text style={styles.buttonText}>+1</Text>
-              </TouchableOpacity>
+              <View style={{ flexDirection: "row", gap: 10 }}>
+                <TouchableOpacity
+                  style={styles.buttonRestarTruco}
+                  onPress={() => handleRestarTruco(1)}
+                >
+                  <Text style={styles.buttonText}>-1</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.buttonSumarTruco}
+                  onPress={() => handleSumarTruco(1)}
+                >
+                  <Text style={styles.buttonText}>+1</Text>
+                </TouchableOpacity>
+              </View>
             </View>
+
             <View style={styles.playerContainer}>
               <Text style={styles.playerTitle}>Jugador 2</Text>
               {renderFosforos(conteoTruco2)}
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handleSumarTruco(2)}
-              >
-                <Text style={styles.buttonText}>+1</Text>
-              </TouchableOpacity>
+              <View style={{ flexDirection: "row", gap: 10 }}>
+                <TouchableOpacity
+                  style={styles.buttonRestarTruco}
+                  onPress={() => handleRestarTruco(2)}
+                >
+                  <Text style={styles.buttonText}>-1</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.buttonSumarTruco}
+                  onPress={() => handleSumarTruco(2)}
+                >
+                  <Text style={styles.buttonText}>+1</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
@@ -168,6 +198,7 @@ export default function Home() {
               borderWidth: 1,
               width: 250,
               textAlign: "center",
+              backgroundColor: "white",
             }}
             placeholder="Puntos"
             keyboardType="numeric"

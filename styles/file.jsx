@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#3CB371",
   },
   textD: {
     fontSize: 20,
@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
   },
-  title: { fontSize: 24, fontWeight: "bold", marginBottom: 10 },
-  subtitle: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 10, textAlign: "center"  },
+  subtitle: { fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center" },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   playerContainer: { alignItems: "center", marginHorizontal: 20 },
-  playerTitle: { fontSize: 16, fontWeight: "bold" },
+  playerTitle: { fontSize: 16, fontWeight: "bold", marginBottom: 10 },
   button: {
     backgroundColor: "blue",
     padding: 10,
@@ -40,6 +40,27 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 10,
   },
+  buttonRestar: {
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    marginLeft: 10,
+    marginBottom: 10,
+  },  buttonSumarTruco: {
+    backgroundColor: "green",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  buttonRestarTruco: {
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 10,
+  },
   buttonText: { color: "white", fontWeight: "bold", textAlign: "center" },
   resetButton: {
     backgroundColor: "red",
@@ -48,13 +69,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   fosforoContainer: {
-    width: 50,
-    height: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "gray",
-    backgroundColor: "white",
+    width: 110,
+    height: 150,
+    position: "relative",
+    overflow: "hidden",
+    backgroundColor: "#fff",
+    borderWidth: 2,
+    borderColor: "#000",
   },
 });
 
