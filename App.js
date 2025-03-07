@@ -13,8 +13,7 @@ import styles from "./styles/file";
 
 export default function Home() {
   const [juego, setJuego] = useState(0);
-  const [inputValue, setInputValue] = useState(0);
-  const [jugador, setJugador] = useState(0);
+  const [inputValues, setInputValue] = useState([0, 0, 0, 0]);
 
   const juegos = [
     { id: 1, nombre: "Truco" },
@@ -35,11 +34,19 @@ export default function Home() {
     setConteoTruco1(0);
     setConteoTruco2(0);
     setConteoChinChon([0, 0, 0, 0]);
+    setInputValue([0, 0, 0, 0]);
   };
 
   const handleSumarTruco = (index) => {
     if (index === 1) setConteoTruco1(conteoTruco1 + 1);
     if (index === 2) setConteoTruco2(conteoTruco2 + 1);
+  };
+
+  const handleSumarChinChon = (index) => {
+    const valorSuma = parseInt(inputValues);
+    let newConteo = [...conteoChinChon];
+    newConteo[index] += valorSuma;
+    setConteoChinChon(newConteo);
   };
 
   const handleRestarChinChon = (index) => {
@@ -121,27 +128,51 @@ export default function Home() {
 
       {juego === 2 && (
         <View>
-          {conteoChinChon.map((puntos, index) => (
-            <View key={index} style={styles.row}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handleRestarChinChon(index)}
-              >
-                <Text style={styles.buttonText}>-10</Text>
-              </TouchableOpacity>
-              <View>
-                <Text style={styles.textD}>
-                  Jugador {index + 1}: {puntos}
-                </Text>
-              </View>
-                <TouchableOpacity
-                  style={styles.buttonSumar}
-                  onPress={() => handleRestarChinChon(index)}
-                >
-                  <Text style={styles.buttonText}>+</Text>
-                </TouchableOpacity>
-            </View>
-          ))}
+          {conteoChinChon.map((puntos, index) => {
+            if (puntos > 100) {
+              return (
+                <View key={index} style={styles.row}>
+                  <Text style={styles.textD}>
+                    Jugador {index + 1} eliminado
+                  </Text>
+                </View>
+              );
+            } else {
+              return (
+                <View key={index} style={styles.row}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => handleRestarChinChon(index)}
+                  >
+                    <Text style={styles.buttonText}>-10</Text>
+                  </TouchableOpacity>
+                  <View>
+                    <Text style={styles.textD}>
+                      Jugador {index + 1}: {puntos}
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={styles.buttonSumar}
+                    onPress={() => handleSumarChinChon(index)}
+                  >
+                    <Text style={styles.buttonText}>Sumar</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            }
+          })}
+          <TextInput
+            style={{
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 1,
+              width: 250,
+              textAlign: "center",
+            }}
+            placeholder="Puntos"
+            keyboardType="numeric"
+            onChangeText={(text) => setInputValue(text)}
+          />
           <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
             <Text style={styles.buttonText}>Reset</Text>
           </TouchableOpacity>
