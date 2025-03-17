@@ -15,12 +15,6 @@ export default function Home() {
   const [juego, setJuego] = useState(0);
   const [inputValues, setInputValue] = useState([0, 0, 0, 0]);
 
-  const juegos = [
-    { id: 0, nombre: "Seleccionar el juego" },
-    { id: 1, nombre: "Truco" },
-    { id: 2, nombre: "Chin Chon" },
-  ];
-
   const [conteoTruco1, setConteoTruco1] = useState(0);
   const [conteoTruco2, setConteoTruco2] = useState(0);
 
